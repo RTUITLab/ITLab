@@ -1,0 +1,31 @@
+version: '3.8'
+
+services: 
+    proxy:
+        build: Proxy
+        ports:
+            - 5500:5500
+        depends_on: 
+            - back
+            - front
+
+    back:
+        build: ITLab-Back/deploy
+        ports: 
+            - 5502:5502
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    front:
+        build: ITLab-Front/deploy
+        ports: 
+            - 5503:5503
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
