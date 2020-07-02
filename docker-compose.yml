@@ -9,12 +9,33 @@ services:
             - back
             - front
 
+    identity:
+        build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
+        ports: 
+            - 5501:5501
+        depends_on: 
+            - postgres
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
+            - AdminConfiguration__IdentityAdminBaseUrl=http://127.0.0.1.xip.io:5504
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+                
     back:
         build: ITLab-Back/deploy
         ports: 
             - 5502:5502
         environment: 
             - ASPNETCORE_ENVIRONMENT=Development
+        depends_on: 
+            - postgres
+            - identity
         logging:
             driver: "json-file"
             options:
@@ -29,3 +50,37 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
+    admin:
+        build: ITLab-Identity/src/ITLab.Identity.Admin/deploy
+        ports: 
+            - 5504:5504
+        depends_on: 
+            - postgres
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
+            - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
+            
+            - AdminConfiguration__IdentityAdminRedirectUri=http://127.0.0.1.xip.io:5504/signin-oidc
+            - AdminConfiguration__IdentityServerBaseUrl=http://127.0.0.1.xip.io:5501
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    postgres:
+        image: postgres:alpine
+        environment:
+            - POSTGRES_PASSWORD=password
+        volumes:
+            - itlab_postgres:/var/lib/postgresql/data
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+volumes:
+    itlab_postgres:

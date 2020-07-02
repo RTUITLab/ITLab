@@ -16,17 +16,27 @@ var cakeSettings = new CakeSettings
 
 
 Task("BuildBack")
-.Does(() => {
+.Does(() => 
+{
    CakeExecuteScript("./ITLab-Back/build.cake", cakeSettings);
 });
 
+Task("BuildIdentity")
+.Does(() => 
+{
+   CakeExecuteScript("./ITLab-Identity/build.cake", cakeSettings);
+});
+
+
 Task("BuildFront")
-.Does(() => {
+.Does(() => 
+{
    CakeExecuteScript("./ITLab-Front/build.cake", cakeSettings);
 });
 
 Task("BuildAll")
    .IsDependentOn("BuildBack")
+   .IsDependentOn("BuildIdentity")
    .IsDependentOn("BuildFront")
    .Does(() =>
 {
