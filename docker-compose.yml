@@ -8,6 +8,7 @@ services:
         depends_on: 
             - back
             - front
+            - docsgen
 
     identity:
         build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
@@ -76,6 +77,14 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
+    docsgen:
+        build: ITLab-DocsGen
+        ports:
+            - 5505:8080
+        depends_on: 
+            - back
+        volumes: 
+            - ./Configuration/docsgen.properties:/application.properties
     postgres:
         image: postgres:alpine
         environment:
