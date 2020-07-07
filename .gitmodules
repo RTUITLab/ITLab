@@ -7,3 +7,9 @@
 [submodule "ITLab-Identity"]
 	path = ITLab-Identity
 	url = https://github.com/RTUITLab/ITLab-Identity.git
+[submodule "ITLab-Salary"]
+	path = ITLab-Salary
+	url = https://github.com/RTUITLab/ITLab-Salary.git
+[submodule "ITLab-Reports-Front"]
+	path = ITLab-Reports-Front
+	url = https://github.com/RTUITLab/ITLab-Reports-Front.git

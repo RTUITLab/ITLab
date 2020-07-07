@@ -1,3 +1,5 @@
+#addin nuget:?package=Cake.Docker&version=0.11.0
+
 var target = Argument("target", "BuildAll");
 var configuration = Argument("configuration", "Release");
 
@@ -11,7 +13,9 @@ Teardown(ctx =>
 
 var cakeSettings = new CakeSettings 
 {
-   Arguments = new Dictionary<string, string>{{"configuration", configuration}}
+   Arguments = new Dictionary<string, string>{
+      ["configuration"] = configuration
+   }
 };
 
 
@@ -31,7 +35,13 @@ Task("BuildIdentity")
 Task("BuildFront")
 .Does(() => 
 {
-   CakeExecuteScript("./ITLab-Front/build.cake", cakeSettings);
+   CakeExecuteScript("./ITLab-Front/build.cake", new CakeSettings {
+      Arguments = new Dictionary<string, string> {
+         ["target"] = "GenAppSettings",
+         ["rewriteConfig"] = ""
+      }
+   });
+   CakeExecuteScript("./ITLab-Front/build.cake");
 });
 
 Task("BuildAll")
@@ -41,6 +51,16 @@ Task("BuildAll")
    .Does(() =>
 {
    
+});
+
+Task("RunInDocker")
+   .IsDependentOn("BuildAll")
+   .Does(() => 
+{
+   DockerComposeBuild();
+   DockerComposeUp(new DockerComposeUpSettings {
+      DetachedMode = false
+   });
 });
 
 

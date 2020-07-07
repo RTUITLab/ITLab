@@ -21,18 +21,23 @@ services:
             - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
             - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
             - AdminConfiguration__IdentityAdminBaseUrl=http://127.0.0.1.xip.io:5504
+        networks:
+            default:
+                aliases:
+                - 127.0.0.1.xip.io
         logging:
             driver: "json-file"
             options:
                 max-size: "200k"
                 max-file: "10"
-                
     back:
         build: ITLab-Back/deploy
         ports: 
             - 5502:5502
         environment: 
             - ASPNETCORE_ENVIRONMENT=Development
+            - UseDebugEmailSender=true
+            - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
         depends_on: 
             - postgres
             - identity
@@ -50,7 +55,7 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
-    admin:
+    identity-admin:
         build: ITLab-Identity/src/ITLab.Identity.Admin/deploy
         ports: 
             - 5504:5504
@@ -82,5 +87,15 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
+    pgadmin:
+        image: dpage/pgadmin4
+        depends_on: 
+            - postgres
+        ports:
+            - 5588:80
+        environment: 
+            - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+            - PGADMIN_DEFAULT_PASSWORD=password
+
 volumes:
     itlab_postgres:
