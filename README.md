@@ -1,6 +1,23 @@
 # ITLab
 Laboratory managing system
 
+## Run system locally from Docker images
+Requirements
+
+- Docker
+
+1. Pull services images
+```bash
+docker-compose pull
+```
+2. Run services
+```bash
+docker-compose up
+```
+General site will bw available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
+> Default user: email="`admin@test.com`" password="`password`"
+
+## Run development environment
 Requirements
 
 - .Net Core 3.1
@@ -9,7 +26,6 @@ Requirements
 - JDK 11+
 - Docker
 
-## Run development environment
 
 1. Build all services
 ```
@@ -26,7 +42,7 @@ docker-compose build
 docker-compose up -d
 ```
 General site will bw available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
-
+> Default user: email="`admin@test.com`" password="`password`"
 ## Architecture
 ### Current
 ![Architecture (current)](docs/img/Architecture.png)
