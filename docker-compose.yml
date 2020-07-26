@@ -1,45 +1,43 @@
-version: '3.8'
+version: "3.8"
 
-services: 
+services:
     proxy:
-        build: Proxy
+        image: rtuitlab/itlab-proxy:${SERVICE_VERSION:-latest}
         ports:
             - 5500:5500
-        depends_on: 
+        depends_on:
+            - identity
             - back
             - front
             - docsgen
+        restart: on-failure
 
     identity:
-        build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
-        ports: 
-            - 5501:5501
-        depends_on: 
+        image: rtuitlab/itlab-identity:${SERVICE_VERSION:-latest}
+        depends_on:
             - postgres
-        environment: 
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
-            - AdminConfiguration__IdentityAdminBaseUrl=http://127.0.0.1.xip.io:5504
+        environment:
+            - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
+            - ConnectionStrings__ConfigurationDbConnection=${SERVICE_IDENTITY_DATABASE}
+            - ConnectionStrings__PersistedGrantDbConnection=${SERVICE_IDENTITY_DATABASE}
+            - ConnectionStrings__IdentityDbConnection=${SERVICE_POSTGRES_USERS_AND_EVENTS_DB}
+            - AdminConfiguration__IdentityAdminBaseUrl=${SERVICE_IDENTITY_ADMIN_URL}
         networks:
             default:
                 aliases:
-                - 127.0.0.1.xip.io
+                    - 127.0.0.1.xip.io
         logging:
             driver: "json-file"
             options:
                 max-size: "200k"
                 max-file: "10"
     back:
-        build: ITLab-Back/deploy
-        ports: 
-            - 5502:5502
-        environment: 
-            - ASPNETCORE_ENVIRONMENT=Development
+        image: rtuitlab/itlab-back:${SERVICE_VERSION:-latest}
+        environment:
+            - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
             - UseDebugEmailSender=true
-            - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
-        depends_on: 
+            - ConnectionStrings__POSTGRES=${SERVICE_POSTGRES_USERS_AND_EVENTS_DB}
+        depends_on:
             - postgres
             - identity
         logging:
@@ -48,42 +46,36 @@ services:
                 max-size: "200k"
                 max-file: "10"
     front:
-        build: ITLab-Front/deploy
-        ports: 
-            - 5503:5503
+        image: rtuitlab/itlab-front:${SERVICE_VERSION:-latest}
         logging:
             driver: "json-file"
             options:
                 max-size: "200k"
                 max-file: "10"
     identity-admin:
-        build: ITLab-Identity/src/ITLab.Identity.Admin/deploy
-        ports: 
-            - 5504:5504
-        depends_on: 
+        image: rtuitlab/itlab-identity-admin:${SERVICE_VERSION:-latest}
+        depends_on:
             - postgres
-        environment: 
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-db;Integrated Security=true;
-            - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-db;Integrated Security=true;
-            
-            - AdminConfiguration__IdentityAdminRedirectUri=http://127.0.0.1.xip.io:5504/signin-oidc
-            - AdminConfiguration__IdentityServerBaseUrl=http://127.0.0.1.xip.io:5501
+        environment:
+            - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
+            - ConnectionStrings__ConfigurationDbConnection=${SERVICE_IDENTITY_DATABASE}
+            - ConnectionStrings__PersistedGrantDbConnection=${SERVICE_IDENTITY_DATABASE}
+            - ConnectionStrings__IdentityDbConnection=${SERVICE_POSTGRES_USERS_AND_EVENTS_DB}
+            - ConnectionStrings__AdminLogDbConnection=${SERVICE_IDENTITY_DATABASE}
+            - ConnectionStrings__AdminAuditLogDbConnection=${SERVICE_IDENTITY_DATABASE}
+
+            - AdminConfiguration__IdentityAdminRedirectUri=${SERVICE_IDENTITY_ADMIN_URL}/signin-oidc
+            - AdminConfiguration__IdentityServerBaseUrl=${SERVICE_IDENTITY_URL}
         logging:
             driver: "json-file"
             options:
                 max-size: "200k"
                 max-file: "10"
     docsgen:
-        build: ITLab-DocsGen
-        ports:
-            - 5505:8080
-        depends_on: 
+        image: rtuitlab/itlab-docsgen:${SERVICE_VERSION:-latest}
+        depends_on:
             - back
-        volumes: 
+        volumes:
             - ./Configuration/docsgen.properties:/application.properties
     postgres:
         image: postgres:alpine
@@ -98,11 +90,11 @@ services:
                 max-file: "10"
     pgadmin:
         image: dpage/pgadmin4
-        depends_on: 
+        depends_on:
             - postgres
         ports:
             - 5588:80
-        environment: 
+        environment:
             - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
             - PGADMIN_DEFAULT_PASSWORD=password
 
