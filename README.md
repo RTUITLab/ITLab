@@ -45,7 +45,7 @@ General site will bw available on [http://127.0.0.1.xip.io:5500](http://127.0.0.
 > Default user: email="`admin@test.com`" password="`password`"
 ## Architecture
 ### Current
-![Architecture (current)](docs/img/Architecture.png)
+![Architecture (current)](docs/img/CurrentArchitecture.png)
 
 
-[Draw.io source file](docs/src/Architecture.drawio)
+[Draw.io source file](docs/src/CurrentArchitecture.drawio)
