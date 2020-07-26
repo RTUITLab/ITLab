@@ -14,7 +14,7 @@ docker-compose pull
 ```bash
 docker-compose up
 ```
-General site will bw available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
+General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
 > Default user: email="`admin@test.com`" password="`password`"
 
 ## Run development environment
@@ -41,7 +41,7 @@ docker-compose build
 ```bash
 docker-compose up -d
 ```
-General site will bw available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
+General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
 > Default user: email="`admin@test.com`" password="`password`"
 ## Architecture
 ### Current
