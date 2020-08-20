@@ -16,3 +16,9 @@
 [submodule "ITLab-DocsGen"]
 	path = ITLab-DocsGen
 	url = https://github.com/RTUITLab/ITLab-DocsGen.git
+[submodule "ITLab-Projects"]
+	path = ITLab-Projects
+	url = https://github.com/RTUITLab/ITLab-Projects.git
+[submodule "ITLab-Projects-Front"]
+	path = ITLab-Projects-Front
+	url = https://github.com/RTUITLab/ITLab-Projects-Front.git

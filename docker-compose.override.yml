@@ -23,3 +23,5 @@ services:
         build: ITLab-DocsGen
         ports:
             - 5505:8080
+    projects-back:
+        build: ITLab-Projects/src/api

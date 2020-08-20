@@ -1,0 +1,15 @@
+{
+    "DbOptions": {
+      "host": "mongo",
+      "dbPort": "27017",
+      "dbName" : "ITLabProjects",
+      "projectsCollectionName" : "projects",
+      "reposCollectionName" : "repos"
+    },
+    "AppOptions": {
+      "appPort": "8080",
+      "testMode": true,
+      "elemsPerPage" : 40
+    }
+  }
+  

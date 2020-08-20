@@ -77,12 +77,39 @@ services:
             - back
         volumes:
             - ./Configuration/docsgen.properties:/application.properties
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    projects-back:
+        image: rtuitlab/itlab-projects-back:${SERVICE_VERSION:-latest}
+        command: ./main
+        depends_on:
+            - mongo
+        volumes:
+            - ./Configuration/projects-back.json:/app/config.json
+            - ./Configuration/projects-back-auth.json:/app/auth_config.json
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
     postgres:
         image: postgres:alpine
         environment:
             - POSTGRES_PASSWORD=password
         volumes:
             - itlab_postgres:/var/lib/postgresql/data
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    mongo:
+        image: mongo
+        volumes:
+            - itlab_postgres:/data/db
         logging:
             driver: "json-file"
             options:
@@ -100,3 +127,4 @@ services:
 
 volumes:
     itlab_postgres:
+    itlab_mongo:
