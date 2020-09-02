@@ -5,6 +5,7 @@ services:
         image: rtuitlab/itlab-proxy:${SERVICE_VERSION:-latest}
         ports:
             - 5500:5500
+            - 5501:5501
         depends_on:
             - identity
             - back
@@ -84,7 +85,6 @@ services:
                 max-file: "10"
     projects-back:
         image: rtuitlab/itlab-projects-back:${SERVICE_VERSION:-latest}
-        command: ./main
         depends_on:
             - mongo
         volumes:
@@ -99,8 +99,9 @@ services:
         image: postgres:alpine
         environment:
             - POSTGRES_PASSWORD=password
-        volumes:
-            - itlab_postgres:/var/lib/postgresql/data
+        # wsl2 issue
+        # volumes:
+        #     - itlab_postgres:/var/lib/postgresql/data
         logging:
             driver: "json-file"
             options:

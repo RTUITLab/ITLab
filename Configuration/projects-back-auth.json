@@ -1,15 +1,14 @@
 {
-    "DbOptions": {
-      "host": "mongo",
-      "dbPort": "27017",
-      "dbName" : "ITLabProjects",
-      "projectsCollectionName" : "projects",
-      "reposCollectionName" : "repos"
+  "AuthOptions": {
+    "keyUrl": "",
+    "audience": "example_audience",
+    "issuer": "http://127.0.0.1.xip.io",
+    "scope": "my_scope",
+    "Github": {
+      "accessToken": ""
     },
-    "AppOptions": {
-      "appPort": "8080",
-      "testMode": true,
-      "elemsPerPage" : 40
+    "Gitlab": {
+      "accessToken": "gitlab_access_token"
     }
   }
-  
+}

@@ -5,8 +5,8 @@ services:
         build: Proxy
     identity:
         build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
-        ports:
-            - 5501:5501
+        # ports:
+            # - 5501:5501
     back:
         build: ITLab-Back/deploy
         ports:
@@ -25,3 +25,5 @@ services:
             - 5505:8080
     projects-back:
         build: ITLab-Projects/src/api
+        ports:
+            - 5506:5506
