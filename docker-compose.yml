@@ -111,6 +111,8 @@ services:
         image: mongo
         volumes:
             - itlab_postgres:/data/db
+        ports:
+            - 27020:27017
         logging:
             driver: "json-file"
             options:
