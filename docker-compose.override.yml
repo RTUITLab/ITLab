@@ -27,3 +27,9 @@ services:
         build: ITLab-Projects/src/api
         ports:
             - 5506:5506
+    projects-front:
+        build:
+            dockerfile: deploy/Dockerfile
+            context: ITLab-Projects-Front
+        ports:
+            - 5507:5507

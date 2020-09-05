@@ -95,6 +95,16 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
+    projects-front:
+        image: rtuitlab/itlab-projects-front:${SERVICE_VERSION:-latest}
+        depends_on:
+            - projects-back
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+
     postgres:
         image: postgres:alpine
         environment:
