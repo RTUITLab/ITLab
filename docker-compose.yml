@@ -11,6 +11,8 @@ services:
             - back
             - front
             - docsgen
+            - projects-back
+            - projects-front
         restart: on-failure
 
     identity:
