@@ -1,9 +1,6 @@
 [submodule "ITLab-Back"]
 	path = ITLab-Back
 	url = https://github.com/RTUITLab/ITLab-Back.git
-[submodule "ITLab-Front"]
-	path = ITLab-Front
-	url = https://github.com/RTUITLab/ITLab-Front.git
 [submodule "ITLab-Identity"]
 	path = ITLab-Identity
 	url = https://github.com/RTUITLab/ITLab-Identity.git
