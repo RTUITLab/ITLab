@@ -5,16 +5,20 @@ services:
         image: rtuitlab/itlab-proxy:${SERVICE_VERSION:-latest}
         ports:
             - 5500:5500
+            - 5501:5501
         depends_on:
             - identity
             - back
             - front
             - docsgen
+            - projects-back
+            - projects-front
         restart: on-failure
 
     identity:
         image: rtuitlab/itlab-identity:${SERVICE_VERSION:-latest}
         depends_on:
+            - identity-admin
             - postgres
         environment:
             - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
@@ -77,12 +81,55 @@ services:
             - back
         volumes:
             - ./Configuration/docsgen.properties:/application.properties
+        deploy:
+            resources:
+                limits:
+                    memory: 150M
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    projects-back:
+        image: rtuitlab/itlab-projects-back:${SERVICE_VERSION:-latest}
+        depends_on:
+            - mongo
+        volumes:
+            - ./Configuration/projects-back.json:/app/config.json
+            - ./Configuration/projects-back-auth.json:/app/auth_config.json
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    projects-front:
+        image: rtuitlab/itlab-projects-front:${SERVICE_VERSION:-latest}
+        depends_on:
+            - projects-back
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+
     postgres:
         image: postgres:alpine
         environment:
             - POSTGRES_PASSWORD=password
+        # wsl2 issue
+        # volumes:
+        #     - itlab_postgres:/var/lib/postgresql/data
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
+    mongo:
+        image: mongo
         volumes:
-            - itlab_postgres:/var/lib/postgresql/data
+            - itlab_postgres:/data/db
+        ports:
+            - 27020:27017
         logging:
             driver: "json-file"
             options:
@@ -100,3 +147,4 @@ services:
 
 volumes:
     itlab_postgres:
+    itlab_mongo:
