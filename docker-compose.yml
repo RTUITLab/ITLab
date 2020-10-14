@@ -3,23 +3,10 @@ version: "3.8"
 services:
     proxy:
         image: rtuitlab/itlab-proxy:${SERVICE_VERSION:-latest}
-        ports:
-            - 5500:5500
-            - 5501:5501
-        depends_on:
-            - identity
-            - back
-            - front
-            - docsgen
-            - projects-back
-            - projects-front
         restart: on-failure
 
     identity:
         image: rtuitlab/itlab-identity:${SERVICE_VERSION:-latest}
-        depends_on:
-            - identity-admin
-            - postgres
         environment:
             - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
             - ConnectionStrings__ConfigurationDbConnection=${SERVICE_IDENTITY_DATABASE}
@@ -41,25 +28,20 @@ services:
             - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
             - UseDebugEmailSender=true
             - ConnectionStrings__POSTGRES=${SERVICE_POSTGRES_USERS_AND_EVENTS_DB}
-        depends_on:
-            - postgres
-            - identity
         logging:
             driver: "json-file"
             options:
                 max-size: "200k"
                 max-file: "10"
-    front:
-        image: rtuitlab/itlab-front:${SERVICE_VERSION:-latest}
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
+    # front:
+    #     image: rtuitlab/itlab-front:${SERVICE_VERSION:-latest}
+    #     logging:
+    #         driver: "json-file"
+    #         options:
+    #             max-size: "200k"
+    #             max-file: "10"
     identity-admin:
         image: rtuitlab/itlab-identity-admin:${SERVICE_VERSION:-latest}
-        depends_on:
-            - postgres
         environment:
             - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
             - ConnectionStrings__ConfigurationDbConnection=${SERVICE_IDENTITY_DATABASE}
@@ -77,8 +59,6 @@ services:
                 max-file: "10"
     docsgen:
         image: rtuitlab/itlab-docsgen:${SERVICE_VERSION:-latest}
-        depends_on:
-            - back
         volumes:
             - ./Configuration/docsgen.properties:/application.properties
         deploy:
@@ -92,8 +72,6 @@ services:
                 max-file: "10"
     projects-back:
         image: rtuitlab/itlab-projects-back:${SERVICE_VERSION:-latest}
-        depends_on:
-            - mongo
         volumes:
             - ./Configuration/projects-back.json:/app/config.json
             - ./Configuration/projects-back-auth.json:/app/auth_config.json
@@ -102,48 +80,16 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
-    projects-front:
-        image: rtuitlab/itlab-projects-front:${SERVICE_VERSION:-latest}
-        depends_on:
-            - projects-back
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
+    # projects-front:
+    #     image: rtuitlab/itlab-projects-front:${SERVICE_VERSION:-latest}
+    #     depends_on:
+    #         - projects-back
+    #     logging:
+    #         driver: "json-file"
+    #         options:
+    #             max-size: "200k"
+    #             max-file: "10"
 
-    postgres:
-        image: postgres:alpine
-        environment:
-            - POSTGRES_PASSWORD=password
-        # wsl2 issue
-        # volumes:
-        #     - itlab_postgres:/var/lib/postgresql/data
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
-    mongo:
-        image: mongo
-        volumes:
-            - itlab_postgres:/data/db
-        ports:
-            - 27020:27017
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
-    pgadmin:
-        image: dpage/pgadmin4
-        depends_on:
-            - postgres
-        ports:
-            - 5588:80
-        environment:
-            - PGADMIN_DEFAULT_EMAIL=admin@test.com
-            - PGADMIN_DEFAULT_PASSWORD=password
 
 volumes:
     itlab_postgres:

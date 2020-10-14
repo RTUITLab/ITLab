@@ -32,37 +32,25 @@ Task("BuildIdentity")
 });
 
 
-Task("BuildFront")
-.Does(() => 
-{
-   CakeExecuteScript("./ITLab-Front/build.cake", new CakeSettings {
-      Arguments = new Dictionary<string, string> {
-         ["target"] = "GenAppSettings",
-         ["rewriteConfig"] = ""
-      }
-   });
-   CakeExecuteScript("./ITLab-Front/build.cake");
-});
+// Task("BuildFront")
+// .Does(() => 
+// {
+//    CakeExecuteScript("./ITLab-Front/build.cake", new CakeSettings {
+//       Arguments = new Dictionary<string, string> {
+//          ["target"] = "GenAppSettings",
+//          ["rewriteConfig"] = ""
+//       }
+//    });
+//    CakeExecuteScript("./ITLab-Front/build.cake");
+// });
 
 Task("BuildAll")
    .IsDependentOn("BuildBack")
    .IsDependentOn("BuildIdentity")
-   .IsDependentOn("BuildFront")
+   // .IsDependentOn("BuildFront")
    .Does(() =>
 {
    
 });
-
-Task("RunInDocker")
-   .IsDependentOn("BuildAll")
-   .Does(() => 
-{
-   DockerComposeBuild();
-   DockerComposeUp(new DockerComposeUpSettings {
-      DetachedMode = false
-   });
-});
-
-
 
 RunTarget(target);
