@@ -18,6 +18,7 @@ services:
     identity:
         image: rtuitlab/itlab-identity:${SERVICE_VERSION:-latest}
         depends_on:
+            - identity-admin
             - postgres
         environment:
             - ASPNETCORE_ENVIRONMENT=${SERVICE_ASPNETCORE_ENVIRONMENT}
@@ -80,6 +81,10 @@ services:
             - back
         volumes:
             - ./Configuration/docsgen.properties:/application.properties
+        deploy:
+            resources:
+                limits:
+                    memory: 150M
         logging:
             driver: "json-file"
             options:
