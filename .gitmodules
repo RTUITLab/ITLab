@@ -1,18 +1,3 @@
-[submodule "ITLab-Back"]
-	path = ITLab-Back
-	url = https://github.com/RTUITLab/ITLab-Back.git
-[submodule "ITLab-Identity"]
-	path = ITLab-Identity
-	url = https://github.com/RTUITLab/ITLab-Identity.git
-[submodule "ITLab-Salary"]
-	path = ITLab-Salary
-	url = https://github.com/RTUITLab/ITLab-Salary.git
-[submodule "ITLab-DocsGen"]
-	path = ITLab-DocsGen
-	url = https://github.com/RTUITLab/ITLab-DocsGen.git
-[submodule "ITLab-Projects"]
-	path = ITLab-Projects
-	url = https://github.com/RTUITLab/ITLab-Projects.git
 [submodule "ITLab-Front-Root"]
 	path = ITLab-Front-Root
 	url = https://github.com/RTUITLab/ITLab-Front-Root.git
