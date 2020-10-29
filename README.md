@@ -1,6 +1,11 @@
 # ITLab
 Laboratory managing system
 
+### Default user
+* login: `admin`
+* password: `Pa$$word1243`
+
+
 ## Run system locally from Docker images
 Requirements
 
@@ -14,26 +19,7 @@ docker-compose pull
 ```bash
 docker-compose up
 ```
-General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
-> Default user: email="`admin@test.com`" password="`password`"
 
-## External Services
-
-### GitHub
-Used by Projects service
-
-Create Personal access Token (PAT) at [settings](https://github.com/settings/tokens) and fill `AuthOptions:GitHub:accessToken` in `Configuration/projects-back-auth.json` 
-```js
-{
-  "AuthOptions": {
-    ...
-    "Github": {
-      "accessToken": "PAT"
-    },
-    ...
-  }
-}
-```
 
 ## Run development environment
 Requirements
