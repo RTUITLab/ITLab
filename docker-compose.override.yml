@@ -1,55 +1,9 @@
 version: "3.8"
 
 services:
-    proxy:
-        build: Proxy
-        ports:
-            - 5500:5500
-            - 5501:5501
-    identity:
-        build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
-    back:
-        build: ITLab-Back/deploy
-        ports:
-            - 5502:5502
-    identity-admin:
-        build: ITLab-Identity/src/ITLab.Identity.Admin/deploy
-        ports:
-            - 5504:5504
-    docsgen:
-        build: ITLab-DocsGen
-        ports:
-            - 5505:8080
-    projects-back:
-        build: ITLab-Projects/src/api
-        ports:
-            - 5506:5506
-    postgres:
-        image: postgres:alpine
-        environment:
-            - POSTGRES_PASSWORD=password
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
-    mongo:
-        image: mongo
-        volumes:
-            - itlab_postgres:/data/db
-        ports:
-            - 27020:27017
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
-    pgadmin:
-        image: dpage/pgadmin4
-        depends_on:
-            - postgres
-        ports:
-            - 5588:80
-        environment:
-            - PGADMIN_DEFAULT_EMAIL=admin@test.com
-            - PGADMIN_DEFAULT_PASSWORD=password
+  proxy:
+    build: Proxy
+    restart: on-failure
+    ports:
+      - 10000:10000
+
