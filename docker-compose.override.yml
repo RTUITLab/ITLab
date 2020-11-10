@@ -5,5 +5,5 @@ services:
     build: Proxy
     restart: on-failure
     ports:
-      - 10000:10000
+      - 5500:5500
 

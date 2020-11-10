@@ -26,15 +26,9 @@ class Build : NukeBuild
         {
             Run("nuke", workingDirectory: BackRootDirectory);
         });
-    Target BuildFrontRoot => _ => _
-        .Executes(() =>
-        {
-            Run("powershell", "./customBuild.ps1", workingDirectory: FrontRootDirectory);
-        });
 
     Target BuildAll => _ => _
         .DependsOn(BuildBackRoot)
-        .DependsOn(BuildFrontRoot)
         .Executes(() =>
         {
         });

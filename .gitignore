@@ -4,3 +4,4 @@ build/obj/
 build/bin/
 
 .tmp/
+environment.ps1
