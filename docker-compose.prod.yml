@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  projects-back:
+    networks:
+    - net
+  proxy:
+    networks:
+    - net
+  docsgen:
+    networks:
+    - net
+  back:
+    networks:
+    - net
+  identity-admin:
+    networks:
+    - net
+  proxy-back:
+    networks:
+    - net
+  identity:
+    networks:
+    - net
+
+networks:
+  net:
+    driver: overlay
