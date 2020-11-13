@@ -7,6 +7,8 @@ function BackendDockerCompose {
                 -f .\ITLab-Back-Root\ITLab-Identity\docker-compose.yml `
                 -f .\ITLab-Back-Root\ITLab-Identity\docker-compose.override.yml `
 `
+        -f .\ITLab-Front-Root\docker-compose.yml `
+        -f .\ITLab-Front-Root\docker-compose.override.yml `
 -f .\docker-compose.override.yml `
         $args
 }
@@ -19,6 +21,9 @@ function ProductionBackendDockerCompose {
             -f .\ITLab-Back-Root\docker-compose.prod.yml `
                     -f .\ITLab-Back-Root\ITLab-Identity\docker-compose.yml `
                     -f .\ITLab-Back-Root\ITLab-Identity\docker-compose.prod.yml `
+    `
+            -f .\ITLab-Front-Root\docker-compose.yml `
+            -f .\ITLab-Front-Root\docker-compose.prod.yml `
     `
     -f .\docker-compose.prod.yml `
             $args
