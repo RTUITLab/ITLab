@@ -7,3 +7,10 @@ services:
     ports:
       - 5500:5500
 
+  front:
+    environment:
+      VUE_APP_REDIRECT_URI: http://127.0.0.1.xip.io:5500/logincallback
+      VUE_APP_POST_LOGOUT_REDIRECT_URL: http://127.0.0.1.xip.io:5500
+      VUE_APP_SILENT_REDIRECT_URI: http://127.0.0.1.xip.io:5500/silentcallback
+
+
