@@ -6,7 +6,11 @@ services:
     restart: on-failure
     ports:
       - 5500:5500
-
+  proxy-front:
+    environment:
+      FRONT_ROOT_ITLAB: http://127.0.0.1.xip.io:5500/front/front
+      FRONT_ROOT_PROJECTS: http://127.0.0.1.xip.io:5500/front/projects/rtuitlab-projects.js
+      FRONT_ROOT_PROJECTS_API_BASE: http://127.0.0.1.xip.io:5500
   front:
     environment:
       VUE_APP_REDIRECT_URI: http://127.0.0.1.xip.io:5500/logincallback
