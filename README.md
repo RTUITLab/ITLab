@@ -50,6 +50,5 @@ General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.
 ## Architecture
 ### Current
 ![Architecture (current)](docs/img/CurrentArchitecture.png)
-
-
-[Draw.io source file](docs/src/CurrentArchitecture.drawio)
+### To be
+![Architecture (to be)](docs/img/ToBeArchitecture.png)
