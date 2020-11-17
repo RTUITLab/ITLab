@@ -13,7 +13,7 @@ using static SimpleExec.Command;
 
 class Build : NukeBuild
 {
-    public static int Main () => Execute<Build>(x => x.BuildAll);
+    public static int Main() => Execute<Build>(x => x.BuildAll);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -22,13 +22,19 @@ class Build : NukeBuild
     AbsolutePath FrontRootDirectory = RootDirectory / "ITLab-Front-Root";
 
     Target BuildBackRoot => _ => _
+         .Executes(() =>
+         {
+             Run("nuke", workingDirectory: BackRootDirectory);
+         });
+    Target BuildFrontRoot => _ => _
         .Executes(() =>
         {
-            Run("nuke", workingDirectory: BackRootDirectory);
+            Run("powershell", @".\build.ps1", workingDirectory: FrontRootDirectory);
         });
 
     Target BuildAll => _ => _
         .DependsOn(BuildBackRoot)
+        .DependsOn(BuildFrontRoot)
         .Executes(() =>
         {
         });
