@@ -17,4 +17,11 @@ services:
       VUE_APP_POST_LOGOUT_REDIRECT_URL: http://127.0.0.1.xip.io:5500
       VUE_APP_SILENT_REDIRECT_URI: http://127.0.0.1.xip.io:5500/silentcallback
 
+  reports-front:
+    environment:
+      ConnectionStrings__ReportsApiBase: http://proxy:5500
+      ConnectionStrings__UsersApiBase: http://proxy:5500
+      ConnectionStrings__SalaryApiBase: http://proxy:5500
+      ConnectionStrings__FilesApiBase: http://proxy:5500/api/mfs
+
 
