@@ -1,6 +1,27 @@
 version: "3.8"
 
 services:
+  identity:
+    networks:
+    - net
+  salary:
+    networks:
+    - net
+  back:
+    networks:
+    - net
+  proxy-back:
+    networks:
+    - net
+  reports-front:
+    networks:
+    - net
+  proxy-front:
+    networks:
+    - net
+  mfs:
+    networks:
+    - net
   projects-back:
     networks:
     - net
@@ -10,19 +31,18 @@ services:
   docsgen:
     networks:
     - net
-  back:
+  reports-back:
     networks:
     - net
   identity-admin:
     networks:
     - net
-  proxy-back:
+  front:
     networks:
     - net
-  identity:
+  projects-front:
     networks:
     - net
-
 networks:
   net:
     driver: overlay
