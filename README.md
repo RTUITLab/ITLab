@@ -1,6 +1,11 @@
 # ITLab
 Laboratory managing system
 
+### Default user
+* login: `admin`
+* password: `Pa$$word1243`
+
+
 ## Run system locally from Docker images
 Requirements
 
@@ -14,8 +19,7 @@ docker-compose pull
 ```bash
 docker-compose up
 ```
-General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.1.xip.io:5500)
-> Default user: email="`admin@test.com`" password="`password`"
+
 
 ## Run development environment
 Requirements
@@ -46,6 +50,5 @@ General site will be available on [http://127.0.0.1.xip.io:5500](http://127.0.0.
 ## Architecture
 ### Current
 ![Architecture (current)](docs/img/CurrentArchitecture.png)
-
-
-[Draw.io source file](docs/src/CurrentArchitecture.drawio)
+### To be
+![Architecture (to be)](docs/img/ToBeArchitecture.png)

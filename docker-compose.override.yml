@@ -1,25 +1,18 @@
 version: "3.8"
 
 services:
-    proxy:
-        build: Proxy
-    identity:
-        build: ITLab-Identity/src/ITLab.Identity.STS.Identity/deploy
-        ports:
-            - 5501:5501
-    back:
-        build: ITLab-Back/deploy
-        ports:
-            - 5502:5502
-    front:
-        build: ITLab-Front/deploy
-        ports:
-            - 5503:5503
-    identity-admin:
-        build: ITLab-Identity/src/ITLab.Identity.Admin/deploy
-        ports:
-            - 5504:5504
-    docsgen:
-        build: ITLab-DocsGen
-        ports:
-            - 5505:8080
+  proxy:
+    build: Proxy
+    restart: on-failure
+    ports:
+      - 5500:5500
+  proxy-front:
+    environment:
+      FRONT_ROOT_PROJECTS_API_BASE: http://127.0.0.1.xip.io:5500 
+  front:
+    environment:
+      VUE_APP_REDIRECT_URI: http://127.0.0.1.xip.io:5500/logincallback
+      VUE_APP_POST_LOGOUT_REDIRECT_URL: http://127.0.0.1.xip.io:5500
+      VUE_APP_SILENT_REDIRECT_URI: http://127.0.0.1.xip.io:5500/silentcallback
+
+

@@ -1,1 +1,10 @@
-tools/
+
+build/obj/
+
+build/bin/
+
+.tmp/
+environment.ps1
+
+stack.yml
+environment.dev.ps1

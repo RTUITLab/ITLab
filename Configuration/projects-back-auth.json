@@ -1,0 +1,14 @@
+{
+  "AuthOptions": {
+    "keyUrl": "http://proxy:5501/.well-known/openid-configuration/jwks",
+    "audience": "itlab",
+    "issuer": "http://127.0.0.1.xip.io:5501",
+    "scope": "my_scope",
+    "Github": {
+      "accessToken": "github_access_token"
+    },
+    "Gitlab": {
+      "accessToken": "gitlab_access_token"
+    }
+  }
+}
