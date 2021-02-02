@@ -13,6 +13,8 @@ ITLab (система управления лабораторией)
 # Images
 * ![](landing/1.png)
 * ![](landing/2.png)
+* ![](landing/ios_1.png)
+* ![](landing/ios_2.png)
 ---
 
 # Videos
