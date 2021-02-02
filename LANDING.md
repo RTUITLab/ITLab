@@ -11,8 +11,8 @@ ITLab (система управления лабораторией)
 ---
 
 # Images
-* ![](https://files.rtuitlab.ru/landing_src/rtuitlab/1.png)
-* ![](https://files.rtuitlab.ru/landing_src/rtuitlab/2.png)
+* ![](landing/1.png)
+* ![](landing/2.png)
 ---
 
 # Videos
