@@ -22,17 +22,20 @@ ITLab (система управления лабораторией)
 # Tags
 * Frontend
 * Backend
+* Mobile
 ---
 # Tech
 * Vue
 * ASP
 * Ktor
+* Swift
 ---
 # Developers
 * Макущенко М.А.
 * Романов Д.Е.
 * Комар Б.Г.
 * Кузнецов А.А.
+* Иванов М.Е.
 ---
 # Site
 ---
@@ -44,5 +47,6 @@ ITLab (система управления лабораторией)
 | Система уведомлений          | https://github.com/RTUITLab/ITLab-Notify  |
 | Система записей о работе     | https://github.com/RTUITLab/ITLab-Reports |
 | Система учета зарплат        | https://github.com/RTUITLab/ITLab-Salary  |
+| Приложение для iOS           | https://github.com/RTUITLab/ITLab-iOS     |
 
 ---
