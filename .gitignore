@@ -7,4 +7,5 @@ build/bin/
 environment.ps1
 
 stack.yml
+stack.dev.yml
 environment.dev.ps1
