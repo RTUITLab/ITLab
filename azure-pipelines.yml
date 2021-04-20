@@ -1,0 +1,68 @@
+trigger:
+- master
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+name: $(BuildID)-$(Build.SourceBranchName)
+
+variables:
+  ${{ if notIn(variables['Build.SourceBranchName'], 'master', 'develop') }}:
+    buildImage: false
+    deployService: false
+    deployEnvironment: 'no'
+    imageTags: 'no'
+    serviceName: 'no'
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    buildImage: true
+    deployService: true
+    deployEnvironment: development
+    imageTags: |
+      $(Build.BuildId)
+      develop
+    serviceName: itlab-develop_proxy
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    buildImage: true
+    deployService: true
+    deployEnvironment: production
+    imageTags: |
+      $(Build.BuildId)
+      latest
+    serviceName: itlab_proxy
+
+stages:
+- stage: Build
+  condition: ${{variables.buildImage}}
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'rtuitlab connection by admin'
+        repository: 'rtuitlab/itlab-proxy'
+        command: 'buildAndPush'
+        Dockerfile: './Proxy/Dockerfile'
+        buildContext: './Proxy'
+        tags: ${{variables.imageTags}}
+- stage: Deploy
+  condition: ${{variables.deployService}}
+  jobs:
+    - deployment: DeployProxy
+      displayName: Deploy Proxy
+      pool:
+        vmImage: 'ubuntu-latest'
+      environment: ${{variables.deployEnvironment}}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - download: none
+              - task: SSH@0
+                inputs:
+                  sshEndpoint: 'swarm manager'
+                  runOptions: 'commands'
+                  commands: 'docker service update --image rtuitlab/itlab-proxy:$(Build.BuildId) ${{variables.serviceName}}'
+                  readyTimeout: '20000'
