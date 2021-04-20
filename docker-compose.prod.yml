@@ -1,46 +1,60 @@
 version: "3.8"
 
 services:
-  identity:
-    networks:
-    - net
-  salary:
-    networks:
-    - net
   back:
-    networks:
-    - net
-  proxy-back:
-    networks:
-    - net
-  reports-front:
-    networks:
-    - net
-  proxy-front:
-    networks:
-    - net
-  mfs:
-    networks:
-    - net
-  projects-back:
-    networks:
-    - net
-  proxy:
+    image: rtuitlab/itlab-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   docsgen:
-    networks:
-    - net
-  reports-back:
-    networks:
-    - net
-  identity-admin:
+    image: rtuitlab/itlab-docsgen:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   front:
+    image: rtuitlab/itlab-front:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  identity:
+    image: rtuitlab/itlab-identity:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  identity-admin:
+    image: rtuitlab/itlab-identity-admin:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  mfs:
+    image: rtuitlab/mfs:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  projects-back:
+    image: rtuitlab/itlab-projects-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   projects-front:
+    image: rtuitlab/itlab-projects-front:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  proxy:
+    image: rtuitlab/itlab-proxy:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  proxy-back:
+    image: rtuitlab/itlab-proxy-back:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  proxy-front:
+    image: rtuitlab/itlab-front-root:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  reports-back:
+    image: rtuitlab/itlab-reports-back:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  reports-front:
+    image: rtuitlab/itlab-reports-front:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  salary:
+    image: rtuitlab/salary:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
 networks:
