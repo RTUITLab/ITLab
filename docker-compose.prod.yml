@@ -57,6 +57,14 @@ services:
     image: rtuitlab/salary:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
+  feedback:
+    image: rtuitlab/itlab-feedback:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  notify:
+    image: rtuitlab/itlab-notify:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
 networks:
   net:
     driver: overlay
