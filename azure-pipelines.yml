@@ -40,8 +40,18 @@ stages:
     displayName: Build
     steps:
     - task: Docker@2
+      displayName: Build image for docker hub
       inputs:
         containerRegistry: 'rtuitlab connection by admin'
+        repository: 'rtuitlab/itlab-proxy'
+        command: 'buildAndPush'
+        Dockerfile: './Proxy/Dockerfile'
+        buildContext: './Proxy'
+        tags: ${{variables.imageTags}}
+    - task: Docker@2
+      displayName: Build image for private docker registry
+      inputs:
+        containerRegistry: 'private rtuitlab registry'
         repository: 'rtuitlab/itlab-proxy'
         command: 'buildAndPush'
         Dockerfile: './Proxy/Dockerfile'
@@ -64,5 +74,5 @@ stages:
                 inputs:
                   sshEndpoint: 'swarm manager'
                   runOptions: 'commands'
-                  commands: 'docker service update --image rtuitlab/itlab-proxy:$(Build.BuildId) ${{variables.serviceName}} --with-registry-auth'
+                  commands: 'docker service update --image registry.rtuitlab.dev/rtuitlab/itlab-proxy:$(Build.BuildId) ${{variables.serviceName}} --with-registry-auth'
                   readyTimeout: '20000'

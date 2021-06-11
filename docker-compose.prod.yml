@@ -2,67 +2,71 @@ version: "3.8"
 
 services:
   back:
-    image: rtuitlab/itlab-back:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   docsgen:
-    image: rtuitlab/itlab-docsgen:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-docsgen:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   front:
-    image: rtuitlab/itlab-front:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-front:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   identity:
-    image: rtuitlab/itlab-identity:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-identity:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   identity-admin:
-    image: rtuitlab/itlab-identity-admin:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-identity-admin:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   mfs:
-    image: rtuitlab/mfs:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/mfs:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   projects-back:
-    image: rtuitlab/itlab-projects-back:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-projects-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   projects-front:
-    image: rtuitlab/itlab-projects-front:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-projects-front:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   proxy:
-    image: rtuitlab/itlab-proxy:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-proxy:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   proxy-back:
-    image: rtuitlab/itlab-proxy-back:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-proxy-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   proxy-front:
-    image: rtuitlab/itlab-front-root:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-front-root:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   reports-back:
-    image: rtuitlab/itlab-reports-back:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-reports-back:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   reports-front:
-    image: rtuitlab/itlab-reports-front:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-reports-front:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   salary:
-    image: rtuitlab/salary:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/salary:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   feedback:
-    image: rtuitlab/itlab-feedback:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-feedback:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
+  push-service:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-push-service:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
   notify:
-    image: rtuitlab/itlab-notify:${ITLAB_SERVICE_TAG-latest}
+    image: registry.rtuitlab.dev/rtuitlab/itlab-notify:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
 networks:
