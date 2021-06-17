@@ -61,6 +61,10 @@ services:
     image: registry.rtuitlab.dev/rtuitlab/itlab-feedback:${ITLAB_SERVICE_TAG-latest}
     networks:
     - net
+  feedback-front:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-feedback-front:${ITLAB_SERVICE_TAG-latest}
+    networks:
+    - net
   push-service:
     image: registry.rtuitlab.dev/rtuitlab/itlab-push-service:${ITLAB_SERVICE_TAG-latest}
     networks:
