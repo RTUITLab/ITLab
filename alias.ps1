@@ -14,6 +14,8 @@ function BackendDockerCompose {
                 -f .\ITLab-Back-Root\ITLab-Feedback\docker-compose.override.yml `
                 -f .\ITLab-Back-Root\ITLab-Projects\docker-compose.yml `
                 -f .\ITLab-Back-Root\ITLab-Projects\docker-compose.override.yml `
+                -f .\ITLab-Back-Root\ITLab-Purchases\docker-compose.yml `
+                -f .\ITLab-Back-Root\ITLab-Purchases\docker-compose.override.yml `
 `
         -f .\ITLab-Front-Root\docker-compose.yml `
         -f .\ITLab-Front-Root\docker-compose.override.yml `
@@ -37,6 +39,8 @@ function ProductionBackendDockerCompose {
                 -f .\ITLab-Back-Root\ITLab-Feedback\docker-compose.prod.yml `
                 -f .\ITLab-Back-Root\ITLab-Projects\docker-compose.yml `
                 -f .\ITLab-Back-Root\ITLab-Projects\docker-compose.prod.yml `
+                -f .\ITLab-Back-Root\ITLab-Purchases\docker-compose.yml `
+                -f .\ITLab-Back-Root\ITLab-Purchases\docker-compose.prod.yml `
 `
         -f .\ITLab-Front-Root\docker-compose.yml `
         -f .\ITLab-Front-Root\docker-compose.prod.yml `
@@ -47,3 +51,11 @@ function ProductionBackendDockerCompose {
 
 Set-Alias -Name idc BackendDockerCompose
 Set-Alias -Name pidc ProductionBackendDockerCompose
+
+function CreateConfigFile {
+        $stack = pidc config
+        $stack = $stack -replace '\d+\.\d+$', '''$0'''
+        $stack > $args[0]
+}
+
+Set-Alias -Name cpidc CreateConfigFile
